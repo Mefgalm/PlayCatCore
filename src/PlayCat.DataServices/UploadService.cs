@@ -5,6 +5,7 @@ using PlayCat.DataService.Response.UploadResponse;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PlayCat.DataService.Response.AudioResponse;
@@ -86,60 +87,58 @@ namespace PlayCat.DataService
                 _dbContext.SaveChanges();
 
                 using (var transaction = _dbContext.Database.BeginTransaction())
-                {
+                {                                        
                     try
                     {
-                        GetInfoResult result = await GetInfoAsync(new UrlRequest { Url = request.Url });
+                        var result = await GetInfoAsync(new UrlRequest {Url = request.Url});
 
                         if (!result.Ok)
                             return responseBuilder
                                    .SetErrors(result.Errors)
                                    .SetInfoAndBuild(result.Info);
 
-                        string videoId = UrlFormatter.GetYoutubeVideoIdentifier(request.Url);
+                        var videoId = UrlFormatter.GetYoutubeVideoIdentifier(request.Url);
 
-                        IFile videoFile = await _saveVideo.SaveAsync(request.Url);
-                        IFile audioFile = await _extractAudio.ExtractAsync(videoFile);
+                        var videoFile = await _saveVideo.SaveAsync(request.Url);
+                        var audioFile = await _extractAudio.ExtractAsync(videoFile);
 
                         //TODO: create upload for FileSystem, Blob, etc...
-                        string accessUrl = _uploadAudio.Upload(audioFile, StorageType.FileSystem);
+                        var accessUrl = _uploadAudio.Upload(audioFile, StorageType.FileSystem);
 
-                        var generalPlayList = _dbContext.Playlists.FirstOrDefault(x => x.OwnerId == userId && x.IsGeneral);
+                        var generalPlayList =
+                            _dbContext.Playlists.FirstOrDefault(x => x.OwnerId == userId && x.IsGeneral);
 
                         if (generalPlayList == null)
                             throw new Exception("Playlist not found");
 
                         var audio = new DataModel.Audio
                         {
-                            Id = Guid.NewGuid(),
-                            AccessUrl = accessUrl,
-                            DateCreated = DateTime.Now,
-                            Artist = request.Artist,
-                            Song = request.Song,
-                            Duration = audioFile.Duration,
-                            Extension = audioFile.Extension,
-                            FileName = audioFile.Filename,
+                            Id               = Guid.NewGuid(),
+                            AccessUrl        = accessUrl,
+                            DateCreated      = DateTime.Now,
+                            Artist           = request.Artist,
+                            Song             = request.Song,
+                            Duration         = audioFile.Duration,
+                            Extension        = audioFile.Extension,
+                            FileName         = audioFile.Filename,
                             UniqueIdentifier = videoId,
-                            UploaderId = userId
+                            UploaderId       = userId
                         };
 
                         var audioPlaylist = new DataModel.AudioPlaylist
                         {
-                            AudioId = audio.Id,
+                            AudioId     = audio.Id,
                             DateCreated = DateTime.Now,
-                            PlaylistId = generalPlayList.Id,
-                            Order = generalPlayList.OrderValue
+                            PlaylistId  = generalPlayList.Id,
+                            Order       = generalPlayList.OrderValue
                         };
-
-                        //skip upload process
-                        user.IsUploadingAudio = false;
 
                         //update max index in playlist
                         generalPlayList.OrderValue++;
 
                         //add entities
                         _dbContext.AudioPlaylists.Add(audioPlaylist);
-                        DataModel.Audio audioEntity = _dbContext.Audios.Add(audio).Entity;
+                        var audioEntity = _dbContext.Audios.Add(audio).Entity;
 
                         _dbContext.SaveChanges();
 
@@ -148,15 +147,16 @@ namespace PlayCat.DataService
                         {
                             Audio = AudioMapper.ToApi.FromData(audioEntity)
                         });
-
-                    } catch(Exception ex)
+                    }
+                    catch
                     {
-                        transaction.Rollback();
-
+                        transaction.Rollback();                      
+                        throw;
+                    }
+                    finally
+                    {
                         user.IsUploadingAudio = false;
                         _dbContext.SaveChanges();
-
-                        throw ex;
                     }
                 }
             });
