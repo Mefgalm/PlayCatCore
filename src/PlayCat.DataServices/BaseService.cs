@@ -116,7 +116,7 @@ namespace PlayCat.DataService
             catch (Exception ex)
             {
                 WriteLog(ex.Message);
-                return GetUnexpectedServerError<TReturn>(ex.StackTrace);
+                return GetUnexpectedServerError<TReturn>(ex.Message);
             }
         }
     }
