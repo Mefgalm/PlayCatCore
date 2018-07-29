@@ -1,0 +1,29 @@
+﻿namespace PlayCat.Music
+{
+    public class UploadAudio : IUploadAudio
+    {
+        private readonly IFileResolver _fileResolver;
+
+        public UploadAudio(IFileResolver fileResolver)
+        {
+            _fileResolver = fileResolver;
+        }
+
+        public string Upload(IFile audioFile, StorageType storageType)
+        {
+            switch(storageType)
+            {
+                case StorageType.FileSystem:
+                    return $"/api/music/song/{audioFile.Filename + audioFile.Extension}/storageType/fileSytem";
+
+                //example
+                //case StorageType.Blob:
+                //    upload file to Blobl
+                //
+                //    return "/music/{id}/storageType/blob"
+            }
+
+            throw new MissingStorageTypeException();
+        }
+    }
+}
