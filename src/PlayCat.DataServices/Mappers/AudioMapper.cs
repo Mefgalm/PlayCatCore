@@ -6,7 +6,7 @@ namespace PlayCat.DataService.Mappers
     {
         public static class ToApi
         {
-            private static string Host = "http://207.154.239.108/";
+            private static string Host = "http://207.154.239.108";
             
             public static ApiModel.Audio FromDTO(AudioDTO audioDTO)
             {
