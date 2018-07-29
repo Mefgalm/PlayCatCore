@@ -46,7 +46,7 @@ namespace PlayCat.Web
 
             DataService.ServiceProvider.RegisterServices(services);
 
-            FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
+            FFmpegConfig.FFmpegPath = Configuration.GetSection("FFmpeg").GetValue<string>("Path");
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}); });
         }
