@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlayCat.ApiModel
+namespace PlayCat.ApiModels
 {
     public class Audio
     {

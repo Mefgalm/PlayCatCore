@@ -4,19 +4,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PlayCat.DataModel;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response.UploadResponse;
-using PlayCat.DataService.Test;
-using PlayCat.DataService.Test;
-using PlayCat.DataServices.Test;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.UploadResponse;
+using PlayCat.DataServices.Test.Extensions;
 using PlayCat.Music;
-using PlayCat.Tests.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.UploadTests
+namespace PlayCat.DataServices.Test.UploadTests
 {
     public class VideoUpload : BaseTest
     {
@@ -25,9 +21,9 @@ namespace PlayCat.Tests.UploadTests
             string password = "123456abc";
             string email = "test@gmail.com";
 
-            DataModel.User user = context.CreateUser(email, "test", "test", "m", password);
+            User user = context.CreateUser(email, "test", "test", "m", password);
             Playlist playlist = context.CreatePlaylist(true, user.Id, "General", 0);
-            DataModel.AuthToken authToken = context.CreateToken(DateTime.Now.AddDays(-1), false, user.Id);
+            AuthToken authToken = context.CreateToken(DateTime.Now.AddDays(-1), false, user.Id);
 
             context.SaveChanges();
 

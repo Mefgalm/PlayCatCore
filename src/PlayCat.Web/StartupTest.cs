@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
+using EmergenceGuardian.FFmpeg;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using PlayCat.DataService;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using System.IO;
-using EmergenceGuardian.FFmpeg;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PlayCat.DataServices;
 using PlayCat.Music;
+using ServiceProvider = PlayCat.DataServices.ServiceProvider;
 
-namespace PlayCat
+namespace PlayCat.Web
 {
     public class StartupTest
     {
@@ -46,7 +42,7 @@ namespace PlayCat
             var connectionString = Configuration.GetConnectionString("DefaultConnection"); 
             services.AddDbContext<PlayCatDbContext>(options => options.UseNpgsql(connectionString));
 
-            DataService.ServiceProvider.RegisterServices(services);
+            ServiceProvider.RegisterServices(services);
             
             FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
         }

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
-using PlayCat.DataModel;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using PlayCat.DataServices.Test;
-using PlayCat.Tests.Extensions;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AudioResponse;
+using PlayCat.DataServices.Test.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.AudioTests
+namespace PlayCat.DataServices.Test.AudioTests
 {
     public class Audio : BaseTest
     {
@@ -449,9 +447,9 @@ namespace PlayCat.Tests.AudioTests
 
             for (int i = 0; i < count; i++)
             {
-                DataModel.Audio audio = context.CreateAudio(DateTime.Now.AddMinutes(i), "access" + i, "artist" + i, "song" + i, BaseAudioExtension, i.ToString(), i.ToString(), null);
+                DataModels.Audio audio = context.CreateAudio(DateTime.Now.AddMinutes(i), "access" + i, "artist" + i, "song" + i, BaseAudioExtension, i.ToString(), i.ToString(), null);
 
-                DataModel.AudioPlaylist audioPlaylist = context.CreateAudioPlaylist(DateTime.Now.AddMinutes(i), audio.Id, playlistId, i);
+                AudioPlaylist audioPlaylist = context.CreateAudioPlaylist(DateTime.Now.AddMinutes(i), audio.Id, playlistId, i);
             }
         }
 

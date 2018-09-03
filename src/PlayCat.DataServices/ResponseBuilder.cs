@@ -1,8 +1,8 @@
-﻿using PlayCat.DataService.Response;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using PlayCat.DataServices.Response;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class ResponseBuilder<T>
         where T : BaseResult, new()

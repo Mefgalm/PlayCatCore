@@ -1,4 +1,4 @@
-﻿namespace PlayCat.DataService.Test
+﻿namespace PlayCat.DataServices.Test
 {
     public class EmptyClass
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using PlayCat.Helpers;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class ModelValidationService : IModelValidationService
     {
@@ -12,7 +12,7 @@ namespace PlayCat.DataService
         public const string Required = "required";
         public const string Compare = "compare";
 
-        public string AssemblyName { get; set; } = "PlayCat.DataService.Request.";
+        public string AssemblyName { get; set; } = "PlayCat.DataServices.Request.";
 
         public IDictionary<string, IDictionary<string, ValidationModel>> GetModel(string typeName)
         {

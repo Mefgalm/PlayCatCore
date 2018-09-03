@@ -1,8 +1,7 @@
-﻿using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Response.AuthResponse;
+﻿using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AuthResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface IAuthService : ISetDbContext
     {

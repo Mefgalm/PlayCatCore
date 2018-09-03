@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using PlayCat.DataModel;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Mappers;
-using PlayCat.DataService.Response.UserResponse;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Mappers;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.UserResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class ProfileService : BaseService, IProfileService
     {

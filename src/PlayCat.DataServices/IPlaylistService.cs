@@ -1,9 +1,9 @@
 ﻿using System;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Response.PlaylistResponse;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Response.PlaylistResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface IPlaylistService : ISetDbContext
     {

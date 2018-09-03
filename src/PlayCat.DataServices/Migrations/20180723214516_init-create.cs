@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PlayCat.DataService.Migrations
+namespace PlayCat.DataServices.Migrations
 {
     public partial class initcreate : Migration
     {

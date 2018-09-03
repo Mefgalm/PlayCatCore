@@ -7,7 +7,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using YotubeLinkerCore;
 
 namespace PlayCat.Music.Youtube
 {

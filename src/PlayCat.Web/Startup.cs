@@ -1,17 +1,15 @@
 ﻿using System.IO;
-using System.Linq;
 using EmergenceGuardian.FFmpeg;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using PlayCat.DataModel;
-using PlayCat.DataService;
+using PlayCat.DataServices;
 using PlayCat.Music;
 using Swashbuckle.AspNetCore.Swagger;
+using ServiceProvider = PlayCat.DataServices.ServiceProvider;
 
 namespace PlayCat.Web
 {
@@ -44,10 +42,15 @@ namespace PlayCat.Web
             services.AddDbContext<PlayCatDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-            DataService.ServiceProvider.RegisterServices(services);
+            ServiceProvider.RegisterServices(services);
 
-            FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
+            //Windows
+            //FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
+            
+            //Mac OS
 
+            FFmpegConfig.FFmpegPath = @"/Users/admin/Documents/ffmpeg";
+            
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}); });
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlayCat.DataModel
+namespace PlayCat.DataModels
 {
     public class User
     {

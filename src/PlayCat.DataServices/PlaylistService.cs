@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Mappers;
-using PlayCat.DataService.DTO;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response.PlaylistResponse;
+using PlayCat.DataModels;
+using PlayCat.DataServices.DTO;
+using PlayCat.DataServices.Mappers;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Response.PlaylistResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class PlaylistService : BaseService, IPlaylistService
     {
@@ -22,7 +23,7 @@ namespace PlayCat.DataService
         {
             return BaseInvokeCheckModel(request, () =>
             {
-                DataModel.Playlist playlist = _dbContext.Playlists.FirstOrDefault(x => x.Id == request.PlaylistId && x.OwnerId == userId);
+                Playlist playlist = _dbContext.Playlists.FirstOrDefault(x => x.Id == request.PlaylistId && x.OwnerId == userId);
 
                 if (playlist == null)
                     return ResponseBuilder<PlaylistResult>.Fail().SetInfoAndBuild(PlaylistNotFound);
@@ -71,7 +72,7 @@ namespace PlayCat.DataService
         {
             return BaseInvokeCheckModel(request, () =>
             {
-                var playlist = new DataModel.Playlist
+                var playlist = new Playlist
                 {
                     Id = Guid.NewGuid(),
                     IsGeneral = false,
@@ -151,7 +152,7 @@ namespace PlayCat.DataService
                         };
                 }
 
-                IEnumerable<ApiModel.Playlist> apiPlaylists =
+                IEnumerable<ApiModels.Playlist> apiPlaylists =
                     playlistDtoQry
                                 .OrderByDescending(x => x.IsGeneral)
                                 .ThenBy(x => x.Title)

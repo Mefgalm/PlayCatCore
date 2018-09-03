@@ -1,17 +1,14 @@
-﻿using Xunit;
+﻿using System;
 using System.IO;
-using System;
-using System.Diagnostics;
 using Newtonsoft.Json;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response.AudioResponse;
-using PlayCat.DataServices.Test;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AudioResponse;
+using PlayCat.DataServices.Test.Extensions;
 using PlayCat.Music;
-using PlayCat.Tests.Extensions;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.UploadTests
+namespace PlayCat.DataServices.Test.UploadTests
 {
     public class VideoGet : BaseTest
     {

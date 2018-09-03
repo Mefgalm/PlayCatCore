@@ -1,6 +1,6 @@
-﻿using PlayCat.ApiModel;
+﻿using PlayCat.ApiModels;
 
-namespace PlayCat.DataService.Response.UploadResponse
+namespace PlayCat.DataServices.Response.UploadResponse
 {
     public class UploadResult : BaseResult
     {

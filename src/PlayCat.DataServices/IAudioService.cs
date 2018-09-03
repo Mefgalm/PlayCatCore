@@ -1,8 +1,9 @@
-﻿using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using System;
+﻿using System;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Response.AudioResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface IAudioService : ISetDbContext
     {

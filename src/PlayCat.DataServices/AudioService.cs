@@ -1,14 +1,17 @@
-﻿using System.Linq;
-using System;
-using PlayCat.DataService.DTO;
-using PlayCat.DataService.Mappers;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Request;
+using PlayCat.DataModels;
+using PlayCat.DataServices.DTO;
+using PlayCat.DataServices.Mappers;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Response.AudioResponse;
+using Audio = PlayCat.ApiModels.Audio;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class AudioService : BaseService, IAudioService
     {        
@@ -23,32 +26,47 @@ namespace PlayCat.DataService
             return BaseInvoke(() =>
             {
                 if (string.IsNullOrWhiteSpace(searchString))
-                    return ResponseBuilder<AudioResult>.SuccessBuild(new AudioResult { Audios = Enumerable.Empty<ApiModel.Audio>() });
+                    return ResponseBuilder<AudioResult>.SuccessBuild(new AudioResult { Audios = Enumerable.Empty<Audio>() });
 
                 searchString = searchString.Trim();
 
                 int excludeMarker = int.MinValue;
 
-                IEnumerable<DataModel.Audio> audios =
-                   (from a in _dbContext.Audios
-                    select new
-                    {
-                        Audio = a,
-                        Rank = a.UniqueIdentifier == searchString ? 1 :
-                               a.Song.StartsWith(searchString) ? 2 :
-                               a.Artist.StartsWith(searchString) ? 3 :
-                               (a.Artist + " " + a.Song).StartsWith(searchString) ? 4 : excludeMarker
-                    } into a
-                    where a.Rank != excludeMarker
-                    orderby a.Rank
-                    select a.Audio)
-                    .Skip(skip)
-                    .Take(take)
-                    .ToList();
+                List<DataModels.Audio> audios;
+
+                if (string.IsNullOrEmpty(searchString))
+                {
+                    audios =
+                        _dbContext.Audios
+                                  .OrderByDescending(x => x.DateCreated)
+                                  .Skip(skip)
+                                  .Take(take)
+                                  .ToList();
+                }
+                else
+                {
+                    audios =
+                        (from a in _dbContext.Audios
+                         select new
+                         {
+                             Audio = a,
+                             Rank = a.UniqueIdentifier == searchString                 ? 1 :
+                                    a.Song.StartsWith(searchString)                    ? 2 :
+                                    a.Artist.StartsWith(searchString)                  ? 3 :
+                                    (a.Artist + " " + a.Song).StartsWith(searchString) ? 4 : excludeMarker
+                         }
+                         into a
+                         where a.Rank != excludeMarker
+                         orderby a.Rank
+                         select a.Audio)
+                        .Skip(skip)
+                        .Take(take)
+                        .ToList();
+                }
 
                 return ResponseBuilder<AudioResult>.SuccessBuild(new AudioResult
                 {
-                    Audios = audios.Select(x => AudioMapper.ToApi.FromData(x))
+                    Audios = audios.Select(AudioMapper.ToApi.FromData)
                 });
             });
         }
@@ -102,7 +120,7 @@ namespace PlayCat.DataService
                 if (playlistInfo.IsAlreadyAdded)
                     return ResponseBuilder<BaseResult>.Fail().SetInfoAndBuild("Audio is already added");
 
-                var audioPlaylist = new DataModel.AudioPlaylist
+                var audioPlaylist = new AudioPlaylist
                 {
                     AudioId = request.AudioId,
                     DateCreated = DateTime.Now,
@@ -125,7 +143,7 @@ namespace PlayCat.DataService
             return BaseInvoke(() =>
             {
                 //get audios with paging
-                IEnumerable<ApiModel.Audio> apiAudios =
+                IEnumerable<Audio> apiAudios =
                     (from ap in _dbContext.AudioPlaylists
                      join a in _dbContext.Audios on ap.AudioId equals a.Id
                      where ap.PlaylistId == playlistId

@@ -1,4 +1,4 @@
-﻿namespace YotubeLinkerCore
+﻿namespace PlayCat.Music.Youtube
 {
     public enum AudioType
     {

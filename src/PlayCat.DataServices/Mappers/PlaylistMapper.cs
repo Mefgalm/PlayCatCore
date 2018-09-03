@@ -1,15 +1,16 @@
-﻿using PlayCat.DataService.DTO;
-using System.Linq;
+﻿using System.Linq;
+using PlayCat.ApiModels;
+using PlayCat.DataServices.DTO;
 
-namespace PlayCat.DataService.Mappers
+namespace PlayCat.DataServices.Mappers
 {
     public static class PlaylistMapper
     {
         public static class ToApi
         {
-            public static ApiModel.Playlist FromDTO(PlaylistDTO playlistDTO)
+            public static Playlist FromDTO(PlaylistDTO playlistDTO)
             {
-                return playlistDTO == null ? null : new ApiModel.Playlist
+                return playlistDTO == null ? null : new Playlist
                 {
                     Id = playlistDTO.Id,
                     Title = playlistDTO.Title,
@@ -19,9 +20,9 @@ namespace PlayCat.DataService.Mappers
                 };
             }
 
-            public static ApiModel.Playlist FromData(DataModel.Playlist playlist)
+            public static Playlist FromData(DataModels.Playlist playlist)
             {
-                return playlist == null ? null : new ApiModel.Playlist
+                return playlist == null ? null : new Playlist
                 {
                     Id = playlist.Id,
                     IsGeneral = playlist.IsGeneral,

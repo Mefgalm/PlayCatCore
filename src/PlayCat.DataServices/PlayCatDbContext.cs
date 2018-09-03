@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PlayCat.DataModel;
+using PlayCat.DataModels;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class PlayCatDbContext : DbContext
     {

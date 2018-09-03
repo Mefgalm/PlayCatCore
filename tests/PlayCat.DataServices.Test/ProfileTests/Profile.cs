@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using PlayCat.DataService;
-using PlayCat.DataServices.Test;
-using PlayCat.Tests.Extensions;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Test.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.ProfileTests
+namespace PlayCat.DataServices.Test.ProfileTests
 {
     public class Profile : BaseTest
     {
@@ -77,7 +76,7 @@ namespace PlayCat.Tests.ProfileTests
                     var user = context.CreateUser("test@mail.com", "v", "last", "m", "123");
                     context.SaveChanges();
 
-                    var result = playListService.UpdateProfile(new DataService.Request.UpdateProfileRequest
+                    var result = playListService.UpdateProfile(new UpdateProfileRequest
                     {
                         Id = Guid.Empty
                     });
@@ -105,7 +104,7 @@ namespace PlayCat.Tests.ProfileTests
                     string newFirstName = "newFirstName";
                     string newLastName = "newLastName";
                     string newNickname = "newNickName";
-                    var result = playListService.UpdateProfile(new DataService.Request.UpdateProfileRequest
+                    var result = playListService.UpdateProfile(new UpdateProfileRequest
                     {
                         Id = user.Id,
                         FirstName = newFirstName,

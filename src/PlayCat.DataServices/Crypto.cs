@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class Crypto : ICrypto
     {

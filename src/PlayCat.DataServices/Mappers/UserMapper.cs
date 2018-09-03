@@ -1,15 +1,16 @@
-﻿using PlayCat.DataService.Request;
-using System;
+﻿using System;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Request;
 
-namespace PlayCat.DataService.Mappers
+namespace PlayCat.DataServices.Mappers
 {
     public static class UserMapper
     {
         public static class ToData
         {
-            public static DataModel.User FromRequest(SignUpRequest request, Action<DataModel.User> overrides = null)
+            public static User FromRequest(SignUpRequest request, Action<User> overrides = null)
             {
-                var dataUser = request == null ? null : new DataModel.User
+                var dataUser = request == null ? null : new User
                 {
                     Email = request.Email,
                     FirstName = request.FirstName,
@@ -23,9 +24,9 @@ namespace PlayCat.DataService.Mappers
 
         public static class ToApi
         {
-            public static ApiModel.User FromData(DataModel.User dataUser)
+            public static ApiModels.User FromData(User dataUser)
             {
-                return dataUser == null ? null : new ApiModel.User
+                return dataUser == null ? null : new ApiModels.User
                 {
                     Email = dataUser.Email,
                     FirstName = dataUser.FirstName,

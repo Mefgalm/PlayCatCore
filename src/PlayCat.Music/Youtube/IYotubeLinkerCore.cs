@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace YotubeLinkerCore
+namespace PlayCat.Music.Youtube
 {
     public interface IYotubeLinkerCore
     {

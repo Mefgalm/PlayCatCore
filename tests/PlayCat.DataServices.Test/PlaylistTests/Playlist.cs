@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response.PlaylistResponse;
-using PlayCat.DataServices.Test;
-using PlayCat.Tests.Extensions;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.PlaylistResponse;
+using PlayCat.DataServices.Test.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.PlaylistTests
+namespace PlayCat.DataServices.Test.PlaylistTests
 {
     public class Playlist : BaseTest
     {
@@ -26,9 +25,9 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(false, userId, "My playlsit", 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(false, userId, "My playlsit", 0);
                     context.SaveChanges();
                     var result = playListService.DeletePlaylist(Guid.Empty, playlist.Id);
 
@@ -52,7 +51,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
                     context.SaveChanges();
 
                     var result = playListService.DeletePlaylist(userId, generalPlaylist.Id);
@@ -77,9 +76,9 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist generalPlaylist = context.CreatePlaylist(true, userId, null, 0);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(false, userId, "My playlist", 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(false, userId, "My playlist", 0);
                     CreateAndAddAudio(context, playlist.Id, 10);
                     context.SaveChanges();
 
@@ -106,7 +105,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
                     context.SaveChanges();
 
                     var result = playListService.DeletePlaylist(userId, Guid.Empty);
@@ -131,7 +130,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
 
                     string newTitle = "New title";
                     var updatePlaylist = context.CreatePlaylist(false, userId, "Top", 0);
@@ -162,7 +161,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
 
                     var updatePlaylist = context.CreatePlaylist(false, userId, "Top", 0);
                     context.SaveChanges();
@@ -195,7 +194,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
                     context.SaveChanges();
 
                     var result = playListService.CreatePlaylist(userId, new CreatePlaylistRequest
@@ -222,7 +221,7 @@ namespace PlayCat.Tests.PlaylistTests
                     Guid userId = GetUserId(context);
 
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
                     context.SaveChanges();
 
                     string playlistTitle = "Test";
@@ -252,11 +251,11 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
                     //create general
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
 
-                    DataModel.Playlist playlist1 = context.CreatePlaylist(false, userId, "playlist1", 0);
-                    DataModel.Playlist playlist2 = context.CreatePlaylist(false, userId, "playlist2", 0);
-                    DataModel.Playlist playlist3 = context.CreatePlaylist(false, userId, "playlist3", 0);
+                    DataModels.Playlist playlist1 = context.CreatePlaylist(false, userId, "playlist1", 0);
+                    DataModels.Playlist playlist2 = context.CreatePlaylist(false, userId, "playlist2", 0);
+                    DataModels.Playlist playlist3 = context.CreatePlaylist(false, userId, "playlist3", 0);
 
                     context.SaveChanges();
 
@@ -327,7 +326,7 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
                     CreateAndAddAudio(context, playlist.Id, 5);
                     context.SaveChanges();
 
@@ -362,7 +361,7 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(false, userId, "My playlist", 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(false, userId, "My playlist", 0);
                     CreateAndAddAudio(context, playlist.Id, 10);
                     context.SaveChanges();
 
@@ -390,8 +389,8 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
-                    DataModel.Playlist playlist2 = context.CreatePlaylist(false, userId, "Rock", 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist2 = context.CreatePlaylist(false, userId, "Rock", 0);
                     CreateAndAddAudio(context, playlist.Id, 10);
                     context.SaveChanges();
 
@@ -419,9 +418,9 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
-                    DataModel.Playlist playlist2 = context.CreatePlaylist(false, userId, "Rock", 0);
-                    DataModel.Playlist playlist3 = context.CreatePlaylist(false, userId, "RnB", 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist2 = context.CreatePlaylist(false, userId, "Rock", 0);
+                    DataModels.Playlist playlist3 = context.CreatePlaylist(false, userId, "RnB", 0);
                     CreateAndAddAudio(context, playlist3.Id, 10);
                     context.SaveChanges();
 
@@ -457,7 +456,7 @@ namespace PlayCat.Tests.PlaylistTests
 
                     Guid userId = GetUserId(context);
 
-                    DataModel.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
+                    DataModels.Playlist playlist = context.CreatePlaylist(true, userId, null, 0);
                     CreateAndAddAudio(context, playlist.Id, count);
                     context.SaveChanges();
 
@@ -478,9 +477,9 @@ namespace PlayCat.Tests.PlaylistTests
 
             for(int i = 0; i < count; i++)
             {
-                DataModel.Audio audio = context.CreateAudio(DateTime.Now.AddMinutes(i), "access" + i, "artist" + i, "song" + i, BaseAudioExtension, i.ToString(), i.ToString(), null);
+                Audio audio = context.CreateAudio(DateTime.Now.AddMinutes(i), "access" + i, "artist" + i, "song" + i, BaseAudioExtension, i.ToString(), i.ToString(), null);
 
-                DataModel.AudioPlaylist audioPlaylist = context.CreateAudioPlaylist(DateTime.Now.AddMinutes(i), audio.Id, playlistId, i);
+                AudioPlaylist audioPlaylist = context.CreateAudioPlaylist(DateTime.Now.AddMinutes(i), audio.Id, playlistId, i);
             }
         }
 

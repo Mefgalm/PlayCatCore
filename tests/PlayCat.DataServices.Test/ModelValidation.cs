@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PlayCat.DataService;
-using PlayCat.DataServices.Test;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests
+namespace PlayCat.DataServices.Test
 {
     public class ModelValidation : BaseTest
     {

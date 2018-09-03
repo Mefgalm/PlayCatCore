@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlayCat.ApiModel
+namespace PlayCat.ApiModels
 {
     public class AuthToken
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface ICrypto
     {

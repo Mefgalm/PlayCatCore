@@ -1,9 +1,7 @@
 ﻿using System;
-using PlayCat.DataModel;
-using PlayCat.DataModel;
-using PlayCat.DataService;
+using PlayCat.DataModels;
 
-namespace PlayCat.Tests.Extensions
+namespace PlayCat.DataServices.Test.Extensions
 {
     internal static class PlayCatContextMockExtension
     {
@@ -12,7 +10,7 @@ namespace PlayCat.Tests.Extensions
             var salt = new Crypto().GenerateSalt();
             var passwordHah = new Crypto().HashPassword(salt, password);
 
-            return context.Users.Add(new DataModel.User
+            return context.Users.Add(new User
             {
                 Id = Guid.NewGuid(),
                 Email = email,
@@ -27,7 +25,7 @@ namespace PlayCat.Tests.Extensions
 
         public static AuthToken CreateToken(this PlayCatDbContext context, DateTime dateExpired, bool isActive, Guid userId)
         {
-            return context.AuthTokens.Add(new DataModel.AuthToken
+            return context.AuthTokens.Add(new AuthToken
             {
                 Id = Guid.NewGuid(),
                 DateExpired = dateExpired,

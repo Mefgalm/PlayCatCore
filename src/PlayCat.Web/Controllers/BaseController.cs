@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PlayCat.Controllers
+namespace PlayCat.Web.Controllers
 {
     public class BaseController : Controller
     {

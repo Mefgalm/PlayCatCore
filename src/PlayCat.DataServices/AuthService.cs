@@ -1,21 +1,22 @@
-﻿using PlayCat.DataService.Mappers;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using PlayCat.DataService.Response.AuthResponse;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Mappers;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AuthResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class AuthService : BaseService, IAuthService
     {
-        private const int AuthTokenDaysExpired = 180;        
+        private const int    AuthTokenDaysExpired = 180;
+        private const string GeneralPlaylistName  = "General";
 
         private readonly ICrypto _crypto;
 
-        public AuthService(PlayCatDbContext dbContext, ILoggerFactory loggerFactory, ICrypto crypto) 
+        public AuthService(PlayCatDbContext dbContext, ILoggerFactory loggerFactory, ICrypto crypto)
             : base(dbContext, loggerFactory.CreateLogger<AuthService>())
         {
             _crypto = crypto;
@@ -27,36 +28,37 @@ namespace PlayCat.DataService
             {
                 var responseBuilder =
                     ResponseBuilder<SignUpInResult>
-                    .Fail();
+                        .Fail();
 
                 if (_dbContext.Users.Any(x => x.Email == request.Email))
                     return responseBuilder.SetInfoAndBuild("User with this email already registered");
 
-                var salt = _crypto.GenerateSalt();
+                var salt        = _crypto.GenerateSalt();
                 var passwordHah = _crypto.HashPassword(salt, request.Password);
 
                 var dataUser = UserMapper.ToData.FromRequest(request, user =>
                 {
-                    user.Id = Guid.NewGuid();
+                    user.Id               = Guid.NewGuid();
                     user.IsUploadingAudio = false;
-                    user.PasswordHash = passwordHah;
-                    user.PasswordSalt = salt;
-                    user.RegisterDate = DateTime.Now;
+                    user.PasswordHash     = passwordHah;
+                    user.PasswordSalt     = salt;
+                    user.RegisterDate     = DateTime.Now;
                 });
 
-                var dataAuthToken = new DataModel.AuthToken
+                var dataAuthToken = new AuthToken
                 {
-                    Id = Guid.NewGuid(),
+                    Id          = Guid.NewGuid(),
                     DateExpired = DateTime.Now.AddDays(AuthTokenDaysExpired),
-                    UserId = dataUser.Id,
-                    IsActive = true
+                    UserId      = dataUser.Id,
+                    IsActive    = true
                 };
 
-                var playlist = new DataModel.Playlist
+                var playlist = new Playlist
                 {
-                    Id = Guid.NewGuid(),
-                    IsGeneral = true,
-                    OwnerId = dataUser.Id,
+                    Id         = Guid.NewGuid(),
+                    IsGeneral  = true,
+                    Title      = GeneralPlaylistName,
+                    OwnerId    = dataUser.Id,
                     OrderValue = 0
                 };
 
@@ -67,21 +69,22 @@ namespace PlayCat.DataService
 
                 return ResponseBuilder<SignUpInResult>.SuccessBuild(new SignUpInResult
                 {
-                    User = UserMapper.ToApi.FromData(dataUser),
+                    User      = UserMapper.ToApi.FromData(dataUser),
                     AuthToken = AuthTokenMapper.ToApi.FromData(dataAuthToken)
                 });
-            });            
+            });
         }
 
         public SignUpInResult SignIn(SignInRequest request)
         {
             return BaseInvokeCheckModel(request, () =>
             {
-                DataModel.User dataUser = _dbContext.Users
-                    .Include(x => x.AuthToken)
-                    .FirstOrDefault(x => x.Email == request.Email);
+                User dataUser = _dbContext.Users
+                                          .Include(x => x.AuthToken)
+                                          .FirstOrDefault(x => x.Email == request.Email);
 
-                if (dataUser == null || !_crypto.IsValid(dataUser.PasswordHash, dataUser.PasswordSalt, request.Password))
+                if (dataUser == null
+                 || !_crypto.IsValid(dataUser.PasswordHash, dataUser.PasswordSalt, request.Password))
                     return ResponseBuilder<SignUpInResult>.Fail().SetInfoAndBuild("Email or password is incorrect");
 
                 UpdateAuthToken(dataUser.AuthToken);
@@ -90,7 +93,7 @@ namespace PlayCat.DataService
 
                 return ResponseBuilder<SignUpInResult>.SuccessBuild(new SignUpInResult
                 {
-                    User = UserMapper.ToApi.FromData(dataUser),
+                    User      = UserMapper.ToApi.FromData(dataUser),
                     AuthToken = AuthTokenMapper.ToApi.FromData(dataUser.AuthToken)
                 });
             });
@@ -100,25 +103,25 @@ namespace PlayCat.DataService
         {
             var responseBuilder =
                 ResponseBuilder<CheckTokenResult>
-                .Fail()
-                .IsShowInfo(false)
-                .SetCode(ResponseCode.InvalidToken);
+                    .Fail()
+                    .IsShowInfo(false)
+                    .SetCode(ResponseCode.InvalidToken);
 
             if (string.IsNullOrEmpty(token))
                 return responseBuilder.SetInfoAndBuild("Token not found in headers");
 
-            if(!Guid.TryParse(token, out Guid tokenId))
+            if (!Guid.TryParse(token, out Guid tokenId))
                 return responseBuilder.SetInfoAndBuild("Token wrong format");
 
-            DataModel.AuthToken authToken = _dbContext.AuthTokens.FirstOrDefault(x => x.Id == tokenId);
+            AuthToken authToken = _dbContext.AuthTokens.FirstOrDefault(x => x.Id == tokenId);
 
-            if(authToken == null)
+            if (authToken == null)
                 return responseBuilder.SetInfoAndBuild("Token not registered");
 
-            if(authToken.DateExpired < DateTime.Now)
+            if (authToken.DateExpired < DateTime.Now)
                 return responseBuilder.SetInfoAndBuild("Token is expired");
 
-            if(!authToken.IsActive)
+            if (!authToken.IsActive)
                 return responseBuilder.SetInfoAndBuild("Token is not active");
 
             return ResponseBuilder<CheckTokenResult>.SuccessBuild(new CheckTokenResult
@@ -127,10 +130,10 @@ namespace PlayCat.DataService
             });
         }
 
-        private void UpdateAuthToken(DataModel.AuthToken token)
+        private void UpdateAuthToken(AuthToken token)
         {
             token.DateExpired = DateTime.Now.AddDays(AuthTokenDaysExpired);
-            token.IsActive = true;
+            token.IsActive    = true;
         }
     }
 }

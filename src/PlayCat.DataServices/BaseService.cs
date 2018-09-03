@@ -1,10 +1,10 @@
-﻿using PlayCat.DataService.Response;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using PlayCat.DataServices.Response;
 using PlayCat.Helpers;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public class BaseService
     {

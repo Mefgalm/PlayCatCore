@@ -1,6 +1,6 @@
-﻿using PlayCat.ApiModel;
+﻿using PlayCat.ApiModels;
 
-namespace PlayCat.DataService.Response.UserResponse
+namespace PlayCat.DataServices.Response.UserResponse
 {
     public class GetUpdateProfileResult : BaseResult
     {

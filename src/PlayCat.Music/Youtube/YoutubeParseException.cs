@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YotubeLinkerCore
+namespace PlayCat.Music.Youtube
 {
     public class YoutubeParseException : Exception
     {

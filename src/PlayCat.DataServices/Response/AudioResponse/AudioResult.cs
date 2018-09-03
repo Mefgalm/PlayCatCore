@@ -1,8 +1,8 @@
-﻿using PlayCat.ApiModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using PlayCat.ApiModels;
 
-namespace PlayCat.DataService.Response
+namespace PlayCat.DataServices.Response.AudioResponse
 {
     public class AudioResult : BaseResult
     {

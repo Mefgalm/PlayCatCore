@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PlayCat.DataService;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using PlayCat.DataServices;
 
-namespace PlayCat.Controllers
+namespace PlayCat.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

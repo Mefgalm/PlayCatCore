@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using PlayCat.DataModel;
+using PlayCat.DataModels;
 
-namespace PlayCat.DataService.DTO
+namespace PlayCat.DataServices.DTO
 {
     public class AudioDTO
     {

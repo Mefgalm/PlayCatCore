@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response.AuthResponse;
-using PlayCat.DataServices.Test;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AuthResponse;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.AuthTests
+namespace PlayCat.DataServices.Test.AuthTests
 {
     public class Auth : BaseTest
     {
@@ -245,7 +244,7 @@ namespace PlayCat.Tests.AuthTests
                     var salt = new Crypto().GenerateSalt();
                     var passwordHah = new Crypto().HashPassword(salt, password);
 
-                    var user = context.Users.Add(new DataModel.User
+                    var user = context.Users.Add(new User
                     {
                         Id = Guid.NewGuid(),
                         Email = email,
@@ -256,7 +255,7 @@ namespace PlayCat.Tests.AuthTests
                         RegisterDate = DateTime.Now,
                     });
 
-                    var authToken = context.AuthTokens.Add(new DataModel.AuthToken
+                    var authToken = context.AuthTokens.Add(new AuthToken
                     {
                         Id = Guid.NewGuid(),
                         DateExpired = DateTime.Now.AddDays(-1),

@@ -1,10 +1,9 @@
 ﻿using System;
-using PlayCat.DataService;
-using PlayCat.DataServices.Test;
+using PlayCat.DataModels;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlayCat.Tests.AuthTests
+namespace PlayCat.DataServices.Test.AuthTests
 {
     public class Token : BaseTest
     {
@@ -72,7 +71,7 @@ namespace PlayCat.Tests.AuthTests
                 {
                     authService.SetDbContext(context);
 
-                    var user = context.Users.Add(new DataModel.User
+                    var user = context.Users.Add(new User
                     {
                         Id = Guid.NewGuid(),
                         Email = "test@gmail.com",
@@ -83,7 +82,7 @@ namespace PlayCat.Tests.AuthTests
                         RegisterDate = DateTime.Now,                       
                     });
                     
-                    var authToken = context.AuthTokens.Add(new DataModel.AuthToken
+                    var authToken = context.AuthTokens.Add(new AuthToken
                     {
                         Id = Guid.NewGuid(),
                         DateExpired = DateTime.Now.AddDays(-1),
@@ -116,7 +115,7 @@ namespace PlayCat.Tests.AuthTests
                 {
                     authService.SetDbContext(context);
 
-                    var user = context.Users.Add(new DataModel.User
+                    var user = context.Users.Add(new User
                     {
                         Id = Guid.NewGuid(),
                         Email = "test@gmail.com",
@@ -127,7 +126,7 @@ namespace PlayCat.Tests.AuthTests
                         RegisterDate = DateTime.Now,
                     });
 
-                    var authToken = context.AuthTokens.Add(new DataModel.AuthToken
+                    var authToken = context.AuthTokens.Add(new AuthToken
                     {
                         Id = Guid.NewGuid(),
                         DateExpired = DateTime.Now.AddDays(10),

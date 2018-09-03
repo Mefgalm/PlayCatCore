@@ -1,4 +1,4 @@
-﻿using YotubeLinkerCore;
+﻿using PlayCat.Music.Youtube;
 
 namespace PlayCat.Music
 {

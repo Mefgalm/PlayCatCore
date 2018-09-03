@@ -1,11 +1,10 @@
 ﻿using System;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using PlayCat.DataService.Response.UploadResponse;
 using System.Threading.Tasks;
-using PlayCat.DataService.Response.AudioResponse;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.AudioResponse;
+using PlayCat.DataServices.Response.UploadResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface IUploadService : ISetDbContext
     {

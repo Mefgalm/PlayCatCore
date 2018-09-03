@@ -1,9 +1,8 @@
-﻿using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using System;
-using PlayCat.DataService.Response.UserResponse;
+﻿using System;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response.UserResponse;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public interface IProfileService : ISetDbContext
     {

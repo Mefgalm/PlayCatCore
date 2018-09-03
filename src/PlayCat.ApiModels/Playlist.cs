@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayCat.ApiModel
+namespace PlayCat.ApiModels
 {
     public class Playlist
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace YotubeLinkerCore
+namespace PlayCat.Music.Youtube
 {
     public class VideoInfo
     {

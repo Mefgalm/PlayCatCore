@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using PlayCat.DataService;
-using PlayCat.DataService.Response;
-using PlayCat.Tests.Extensions;
+using PlayCat.DataModels;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Test.Extensions;
+using PlayCat.Web;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -51,8 +52,8 @@ namespace PlayCat.DataServices.Test
             string password = "123456abc";
             string email = "test@gmail.com";
 
-            DataModel.User user = context.CreateUser(email, "test", "test", "m", password);
-            DataModel.AuthToken authToken = context.CreateToken(DateTime.Now.AddDays(-1), false, user.Id);
+            User user = context.CreateUser(email, "test", "test", "m", password);
+            AuthToken authToken = context.CreateToken(DateTime.Now.AddDays(-1), false, user.Id);
 
             context.SaveChanges();
 

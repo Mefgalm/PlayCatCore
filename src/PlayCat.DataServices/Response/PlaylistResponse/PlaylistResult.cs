@@ -1,6 +1,6 @@
-﻿using PlayCat.ApiModel;
+﻿using PlayCat.ApiModels;
 
-namespace PlayCat.DataService.Response.PlaylistResponse
+namespace PlayCat.DataServices.Response.PlaylistResponse
 {
     public class PlaylistResult : BaseResult
     {

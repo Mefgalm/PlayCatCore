@@ -1,6 +1,6 @@
-﻿using PlayCat.ApiModel;
+﻿using PlayCat.ApiModels;
 
-namespace PlayCat.DataService.Response.AuthResponse
+namespace PlayCat.DataServices.Response.AuthResponse
 {
     public class SignUpInResult : BaseResult
     {

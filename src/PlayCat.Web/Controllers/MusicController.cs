@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using PlayCat.Controllers;
-using PlayCat.DataService;
 using PlayCat.Music;
 
 namespace PlayCat.Web.Controllers

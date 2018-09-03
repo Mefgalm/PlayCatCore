@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PlayCat.DataService;
-using PlayCat.DataService.Request;
-using PlayCat.DataService.Response;
-using System.Threading.Tasks;
-using PlayCat.DataService.Response.AudioResponse;
-using PlayCat.DataService.Response.AuthResponse;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PlayCat.DataServices;
+using PlayCat.DataServices.Request;
+using PlayCat.DataServices.Response;
+using PlayCat.DataServices.Response.AudioResponse;
+using PlayCat.DataServices.Response.AuthResponse;
 
-namespace PlayCat.Controllers
+namespace PlayCat.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

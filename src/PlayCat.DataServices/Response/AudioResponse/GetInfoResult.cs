@@ -1,6 +1,6 @@
 ﻿using PlayCat.Music;
 
-namespace PlayCat.DataService.Response.AudioResponse
+namespace PlayCat.DataServices.Response.AudioResponse
 {
     public class GetInfoResult : BaseResult
     {

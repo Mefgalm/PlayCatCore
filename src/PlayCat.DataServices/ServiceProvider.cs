@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PlayCat.Music;
 using PlayCat.Music.Youtube;
-using YotubeLinkerCore;
 
-namespace PlayCat.DataService
+namespace PlayCat.DataServices
 {
     public static class ServiceProvider
     {

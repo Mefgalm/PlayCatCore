@@ -1,4 +1,4 @@
-﻿namespace PlayCat.DataService
+﻿namespace PlayCat.DataServices
 {
     public interface ISetDbContext
     {

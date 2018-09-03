@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PlayCat.DataService.Response
+namespace PlayCat.DataServices.Response
 {
     public class BaseResult
     {
