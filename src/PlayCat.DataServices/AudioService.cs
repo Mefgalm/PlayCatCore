@@ -24,13 +24,8 @@ namespace PlayCat.DataServices
         public AudioResult SearchAudios(string searchString, int skip, int take)
         {
             return BaseInvoke(() =>
-            {
-                if (string.IsNullOrWhiteSpace(searchString))
-                    return ResponseBuilder<AudioResult>.SuccessBuild(new AudioResult { Audios = Enumerable.Empty<Audio>() });
-
-                searchString = searchString.Trim();
-
-                int excludeMarker = int.MinValue;
+            {                
+                const int excludeMarker = int.MinValue;
 
                 List<DataModels.Audio> audios;
 
@@ -45,6 +40,8 @@ namespace PlayCat.DataServices
                 }
                 else
                 {
+                    searchString = searchString.Trim();
+                    
                     audios =
                         (from a in _dbContext.Audios
                          select new
