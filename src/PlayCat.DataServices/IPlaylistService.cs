@@ -11,5 +11,6 @@ namespace PlayCat.DataServices
         BaseResult DeletePlaylist(Guid userId, Guid playlistId);
         UserPlaylistsResult GetUserPlaylists(Guid userId, Guid? playlistId, int skip, int take);
         PlaylistResult UpdatePlaylist(Guid userId, UpdatePlaylistRequest request);
+        AllUserPlaylistsResult AllUserPlaylists(Guid userId);
     }
 }

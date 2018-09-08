@@ -5,9 +5,20 @@ using PlayCat.DataServices.DTO;
 namespace PlayCat.DataServices.Mappers
 {
     public static class PlaylistMapper
-    {
+    {                           
         public static class ToApi
         {
+            public static SimplePlaylist SimpleFromData(DataModels.Playlist playlist)
+            {
+                return playlist == null ? null : new SimplePlaylist
+                {
+                    Id        = playlist.Id,
+                    IsGeneral = playlist.IsGeneral,
+                    Title     = playlist.Title,
+                    Owner     = UserMapper.ToApi.FromData(playlist.Owner)
+                };
+            }
+            
             public static Playlist FromDTO(PlaylistDTO playlistDTO)
             {
                 return playlistDTO == null ? null : new Playlist

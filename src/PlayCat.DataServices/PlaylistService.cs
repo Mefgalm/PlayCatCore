@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PlayCat.DataModels;
 using PlayCat.DataServices.DTO;
@@ -87,6 +88,21 @@ namespace PlayCat.DataServices
                 return ResponseBuilder<PlaylistResult>.SuccessBuild(new PlaylistResult
                 {
                     Playlist = PlaylistMapper.ToApi.FromData(playlist)
+                });
+            });
+        }
+
+        public AllUserPlaylistsResult AllUserPlaylists(Guid userId)
+        {
+            return BaseInvoke(() =>
+            {
+                return ResponseBuilder<AllUserPlaylistsResult>.SuccessBuild(new AllUserPlaylistsResult
+                {
+                    Playlists = _dbContext.Playlists
+                                          .Include(x => x.Owner)
+                                          .Where(x => x.OwnerId == userId)
+                                          .ToList()
+                                          .Select(PlaylistMapper.ToApi.SimpleFromData)
                 });
             });
         }

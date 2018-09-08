@@ -51,6 +51,16 @@ namespace PlayCat.Web.Controllers
             return _playlistService.CreatePlaylist(checkTokenResult.AuthToken.UserId, request);
         }
 
+        [HttpGet("allUserPlaylists")]
+        public AllUserPlaylistsResult AllUserPlaylistsResult()
+        {
+            CheckTokenResult checkTokenResult = _authService.CheckToken(AccessToken);
+            if (!checkTokenResult.Ok)
+                return new AllUserPlaylistsResult(checkTokenResult);
+
+            return _playlistService.AllUserPlaylists(checkTokenResult.AuthToken.UserId);
+        }
+
         [HttpGet("userPlaylists")]
         public UserPlaylistsResult GetUserPlaylists(Guid? playlistId, int skip = 0, int take = 50)
         {
