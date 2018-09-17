@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audio" />
+    <Folder Include="Video" />
     <Folder Include="wwwroot" />
   </ItemGroup>
   <ItemGroup>

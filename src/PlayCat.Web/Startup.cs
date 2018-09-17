@@ -44,11 +44,13 @@ namespace PlayCat.Web
 
             ServiceProvider.RegisterServices(services);
 
+            //Linux
+            FFmpegConfig.FFmpegPath = "/usr/bin/ffmpeg";
+            
             //Windows
-            FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
+            //FFmpegConfig.FFmpegPath = @"E:\Downloads\ffmpeg-20180720-3870ed7-win64-static\bin\ffmpeg.exe";
             
             //Mac OS
-
             //FFmpegConfig.FFmpegPath = @"/Users/admin/Documents/ffmpeg";
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}); });

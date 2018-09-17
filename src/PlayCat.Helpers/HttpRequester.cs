@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace PlayCat.Helpers
 {
@@ -15,8 +16,8 @@ namespace PlayCat.Helpers
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            var webResponse = (HttpWebResponse)webRequest.GetResponse();
+            var webRequest = (HttpWebRequest) WebRequest.Create(url);
+            var webResponse = (HttpWebResponse) webRequest.GetResponse();
 
             int contentLength = int.Parse(webResponse.Headers["Content-Length"]);
 
@@ -29,4 +30,3 @@ namespace PlayCat.Helpers
         }
     }
 }
- 

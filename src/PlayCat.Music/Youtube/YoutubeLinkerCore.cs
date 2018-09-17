@@ -299,7 +299,7 @@ namespace PlayCat.Music.Youtube
                 funcName = "\\" + funcName; //Due To Dollar Sign Introduction, Need To Escape
             }
 
-            var funcPattern = @"(?!h\.)" + @funcName + @"=function\(\w+\)\{.*?\}";         //Escape funcName string
+            string funcPattern = @"(?!h\.)" + @funcName + @"(\w+)\s*=\s*function\(\s*(\w+)\s*\)\s*{\s*\2\s*=\s*\2\.split\(\""\""\)\s*;(.+)return\s*\2\.join\(\""\""\)\s*}\s*;"; //Escape funcName string
             var funcBody    = Regex.Match(js, funcPattern, RegexOptions.Singleline).Value; //Entire sig function
             var lines       = funcBody.Split(';');                                         //Each line in sig function
 
